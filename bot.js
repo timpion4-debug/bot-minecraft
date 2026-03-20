@@ -18,5 +18,3 @@ bot.on('end', () => setTimeout(createBot, 5000))
 
 createBot()
 auth: 'offline'
-bot.on('error', console.log)
-bot.on('kicked', console.log)
