@@ -14,9 +14,9 @@ function createBot() {
         
         // On attend 500ms pour être sûr que le chat est prêt
         setTimeout(() => {
-            bot.chat('/login 123')
+            bot.chat('/login 1234')
             console.log("Commande /login envoyée.")
-        }, 500)
+        }, 1000)
 
         // Ton système Anti-AFK (saut)
         setInterval(() => {
