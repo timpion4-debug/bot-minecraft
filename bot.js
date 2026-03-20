@@ -23,7 +23,10 @@ function createBot() {
                 bot.chat('/vanish')
                 console.log("Commande /vanish envoyée pour la discrétion.")
             }, 1000)
-
+        setTimeout(() => {
+                bot.chat('/vanish')
+                console.log("Commande /vanish envoyée pour la discrétion.")
+            }, 1000)
         }, 1500)
 
         // Saut Anti-AFK toutes les 20 secondes
