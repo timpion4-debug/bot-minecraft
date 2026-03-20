@@ -2,33 +2,50 @@ const mineflayer = require('mineflayer')
 
 function createBot() {
     const bot = mineflayer.createBot({
-        host: 'Floralya.aternos.me', 
-        port: 24217,                         
-        username: 'Flora-Bot',
-        version: '1.21.10',                   
+        host: 'Floralya.aternos.me', // À METTRE À JOUR AVEC L'IP DIRECTE (.host)
+        port: 24217,                         // À METTRE À JOUR AVEC LE PORT À 5 CHIFFRES
+        username: 'Flora',                   // Ton nouveau pseudo
+        version: '1.21.10',
         auth: 'offline'
     })
 
+    // 1. Actions à la connexion (Login + Saut Anti-AFK)
     bot.on('spawn', () => {
-        console.log("Le bot a spawn. Tentative de login...")
+        console.log("Flora est en ligne !")
         
-        // On attend 500ms pour être sûr que le chat est prêt
         setTimeout(() => {
-            bot.chat('/register 1234 1234')
-            console.log("Commande /register envoyée.")
-        }, 1000)
+            bot.chat('/login 1234')          // Ton nouveau mot de passe
+            console.log("Login effectué avec 1234")
+        }, 1500)
 
-        // Ton système Anti-AFK (saut)
+        // Saut pour ne pas être kické pour inactivité
         setInterval(() => {
             bot.setControlState('jump', true)
             setTimeout(() => bot.setControlState('jump', false), 500)
-        }, 10000)
+        }, 20000) // Un saut toutes les 20 secondes
     })
 
-    bot.on('error', (err) => console.log("Erreur :", err.message))
-    bot.on('kicked', (reason) => console.log("Kické :", reason))
+    // 2. Réactions au Chat
+    bot.on('chat', (username, message) => {
+        if (username === bot.username) return // Ne pas se répondre à soi-même
+
+        const msg = message.toLowerCase()
+
+        if (msg.includes('salut') || msg.includes('bonjour')) {
+            bot.chat(`Bonjour ${username} ! Je suis Flora, prête à aider.`)
+        }
+
+        if (msg.includes('flora tu es là')) {
+            bot.chat("Oui, je suis connectée et je surveille la zone !")
+        }
+    })
+
+    // 3. Gestion des erreurs et relance automatique
+    bot.on('error', (err) => console.log("Erreur détectée :", err.message))
+    bot.on('kicked', (reason) => console.log("Bot expulsé :", reason))
+    
     bot.on('end', () => {
-        console.log("Déconnecté. Reconnexion...");
+        console.log("Connexion coupée. Tentative de retour dans 5 secondes...")
         setTimeout(createBot, 5000)
     })
 }
