@@ -4,7 +4,7 @@ function createBot() {
     const bot = mineflayer.createBot({
         host: 'Floralya.aternos.me', 
         port: 24217,                         
-        username: 'Flora_Bot',
+        username: 'Flora-Bot',
         version: '1.21.10',                   
         auth: 'offline'
     })
@@ -14,8 +14,8 @@ function createBot() {
         
         // On attend 500ms pour être sûr que le chat est prêt
         setTimeout(() => {
-            bot.chat('/login 1234')
-            console.log("Commande /login envoyée.")
+            bot.chat('/register 1234 1234')
+            console.log("Commande /register envoyée.")
         }, 1000)
 
         // Ton système Anti-AFK (saut)
