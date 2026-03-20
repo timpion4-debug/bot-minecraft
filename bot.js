@@ -1,26 +1,30 @@
+const mineflayer = require('mineflayer')
+
 function createBot() {
     const bot = mineflayer.createBot({
-        host: 'Floralya.aternos.me', // Juste l'adresse ici
-        port: 24217,                // Le port va sur sa propre ligne
+        host: 'bot-minecraft',
+        port: 24217,
         username: 'Flora_Bot',
-        version: '1.20.1',          // Il est fortement conseillé de préciser la version du serveur
-        auth: 'offline'             // Doit être à l'intérieur des accolades
+        auth: 'offline', // Très important pour Aternos
+        version: '1.20.1' // Vérifie bien que ton serveur est dans cette version
     })
 
     bot.on('spawn', () => {
-        console.log("Le bot est connecté !");
+        console.log("Connecté au serveur ! Le bot commence à sauter.");
         setInterval(() => {
             bot.setControlState('jump', true)
             setTimeout(() => bot.setControlState('jump', false), 500)
         }, 10000)
     })
 
-    // Gestion d'erreur pour voir pourquoi ça plante
-    bot.on('error', (err) => console.log('Erreur :', err));
-    bot.on('kicked', (reason) => console.log('Kické pour :', reason));
+    // Ces lignes vont t'aider à débugger sur Railway si ça crash encore
+    bot.on('error', (err) => console.log('Erreur détectée :', err))
+    bot.on('kicked', (reason) => console.log('Bot expulsé pour :', reason))
 
     bot.on('end', () => {
-        console.log("Déconnecté, tentative de reconnexion...");
-        setTimeout(createBot, 5000);
+        console.log("Connexion perdue. Reconnexion dans 5 secondes...")
+        setTimeout(createBot, 5000)
     })
 }
+
+createBot()
