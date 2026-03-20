@@ -4,55 +4,48 @@ function createBot() {
     const bot = mineflayer.createBot({
         host: 'Floralya.aternos.me', // À METTRE À JOUR AVEC L'IP DIRECTE (.host)
         port: 24217,                         // À METTRE À JOUR AVEC LE PORT À 5 CHIFFRES
-        username: 'Flora',                   
+        username: 'Flora',                   // Ton nouveau pseudo
         version: '1.21.10',
         auth: 'offline'
     })
 
-    // 1. Connexion, Login et Discrétion
+    // 1. Actions à la connexion (Login + Saut Anti-AFK)
     bot.on('spawn', () => {
-        console.log("Flora est connectée !")
+        console.log("Flora est en ligne !")
         
         setTimeout(() => {
-            // Étape 1 : Se connecter
-            bot.chat('/login Florabot')
-            console.log("Login effectué.")
-
-            // Étape 2 : Devenir invisible (Vanish)
-            setTimeout(() => {
-                bot.chat('/vanish')
-                console.log("Commande /vanish envoyée pour la discrétion.")
-            }, 1000)
-
+            bot.chat('/login Florabot')          // Ton nouveau mot de passe
+            console.log("Login effectué avec Florabot")
         }, 1500)
 
-        // Saut Anti-AFK toutes les 20 secondes
+        // Saut pour ne pas être kické pour inactivité
         setInterval(() => {
             bot.setControlState('jump', true)
             setTimeout(() => bot.setControlState('jump', false), 500)
-        }, 20000)
+        }, 20000) // Un saut toutes les 20 secondes
     })
 
     // 2. Réactions au Chat
     bot.on('chat', (username, message) => {
-        if (username === bot.username) return 
+        if (username === bot.username) return // Ne pas se répondre à soi-même
 
         const msg = message.toLowerCase()
 
-        // Le bot ne répond que si on cite son nom pour rester discret
-        if (msg.includes('flora')) {
-            if (msg.includes('salut') || msg.includes('coucou')) {
-                bot.chat(`Salut ${username} ! Je suis là, mais en mode discret.`)
-            }
+        if (msg.includes('salut') || msg.includes('bonjour')) {
+            bot.chat(`Bonjour ${username} ! Je suis Flora, prête à aider.`)
+        }
+
+        if (msg.includes('flora tu es là')) {
+            bot.chat("Oui, je suis connectée et je surveille la zone !")
         }
     })
 
-    // 3. Gestion des imprévus
-    bot.on('error', (err) => console.log("Erreur :", err.message))
-    bot.on('kicked', (reason) => console.log("Bot kické :", reason))
+    // 3. Gestion des erreurs et relance automatique
+    bot.on('error', (err) => console.log("Erreur détectée :", err.message))
+    bot.on('kicked', (reason) => console.log("Bot expulsé :", reason))
     
     bot.on('end', () => {
-        console.log("Déconnexion. Retour dans 5 secondes...")
+        console.log("Connexion coupée. Tentative de retour dans 5 secondes...")
         setTimeout(createBot, 5000)
     })
 }
