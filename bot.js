@@ -2,8 +2,8 @@ const mineflayer = require('mineflayer')
 
 function createBot(){
 const bot = mineflayer.createBot({
-  host: 'tonserveur.aternos.me',
-  username: 'AFK_Bot'
+  host: 'Floralya.aternos.me:24217',
+  username: 'Flora_BOt'
 })
 
 bot.on('spawn', () => {
@@ -17,3 +17,4 @@ bot.on('end', () => setTimeout(createBot, 5000))
 }
 
 createBot()
+auth: 'offline'
