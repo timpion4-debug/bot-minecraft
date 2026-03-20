@@ -14,8 +14,8 @@ function createBot() {
         console.log("Flora est en ligne !")
         
         setTimeout(() => {
-            bot.chat('/register 1234 1234')          // Ton nouveau mot de passe
-            console.log("Register effectué avec 1234")
+            bot.chat('/login Florabot')          // Ton nouveau mot de passe
+            console.log("Login effectué avec Florabot")
         }, 1500)
 
         // Saut pour ne pas être kické pour inactivité
