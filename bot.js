@@ -6,7 +6,7 @@ function createBot() {
         port: 24217,
         username: 'Flora_Bot',
         auth: 'offline', // Très important pour Aternos
-        version: '1.20.1' // Vérifie bien que ton serveur est dans cette version
+        version: '1.21.10' // Vérifie bien que ton serveur est dans cette version
     })
 
     bot.on('spawn', () => {
